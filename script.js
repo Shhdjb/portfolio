@@ -410,4 +410,33 @@
       closeModal();
     }
   });
+
+  /* Experience card 3D tilt */
+  const experienceCards = document.querySelectorAll(".experience-card[data-tilt]");
+  const prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const finePointer = window.matchMedia("(pointer: fine)").matches;
+
+  if (!prefersReducedMotion && finePointer) {
+    experienceCards.forEach((card) => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        const rotateX = ((y - centerY) / centerY) * -4;
+        const rotateY = ((x - centerX) / centerX) * 4;
+
+        card.style.setProperty("--card-tilt-x", `${rotateX}deg`);
+        card.style.setProperty("--card-tilt-y", `${rotateY}deg`);
+        card.style.setProperty("--card-lift", "-8px");
+      });
+
+      card.addEventListener("mouseleave", () => {
+        card.style.setProperty("--card-tilt-x", "0deg");
+        card.style.setProperty("--card-tilt-y", "0deg");
+        card.style.setProperty("--card-lift", "0px");
+      });
+    });
+  }
 })();
