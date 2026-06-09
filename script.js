@@ -17,8 +17,6 @@
   const modalClose = document.getElementById("modalClose");
   const modalTitle = document.getElementById("modalTitle");
   const modalBody = document.getElementById("modalBody");
-  const contactForm = document.getElementById("contactForm");
-
   const projects = {
     agromind: {
       title: "AgroMind – AI-Based Smart Irrigation and Fertilization Decision Support System",
@@ -412,24 +410,4 @@
       closeModal();
     }
   });
-
-  /* Contact form — opens mailto with prefilled message */
-  if (contactForm) {
-    contactForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-
-      const name = document.getElementById("contactName").value.trim();
-      const email = document.getElementById("contactEmail").value.trim();
-      const message = document.getElementById("contactMessage").value.trim();
-
-      if (!name || !email || !message) return;
-
-      const subject = encodeURIComponent(`Portfolio Contact from ${name}`);
-      const body = encodeURIComponent(
-        `Name: ${name}\nEmail: ${email}\n\n${message}`
-      );
-
-      window.location.href = `mailto:jbareenshhd65@gmail.com?subject=${subject}&body=${body}`;
-    });
-  }
 })();
